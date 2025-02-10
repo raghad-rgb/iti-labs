@@ -202,10 +202,8 @@ function select_from_table() {
     read table
     if [ -f "$table.txt" ]; then
         echo "Displaying table content columns in header:"
-        # Show columns (first line) as headers
         header=$(head -n 1 "$table.txt")
         echo "Columns: $header"
-        # Display data with line numbers
         nl -ba "$table.txt"
     else
         echo "Table '$table' does not exist!"
@@ -217,10 +215,8 @@ function delete_from_table() {
     read table
     if [ -f "$table.txt" ]; then
         echo "Displaying table content with line numbers:"
-        # Show columns (first line) as headers
         header=$(head -n 1 "$table.txt")
         echo "Columns: $header"
-        # Display data with line number
         nl -ba "$table.txt"
         echo "Enter the line number to delete: "
         read line
@@ -257,13 +253,7 @@ function update_table() {
 
         IFS=' ' read -ra type_array <<< "$data_types"
         IFS=',' read -ra value_array <<< "$new_data"
-
-
-        if [ "$line" -le 1 ] || [ "$line" -gt "$(wc -l < "$table.txt")" ]; then
-            echo "Error: Invalid line number!"
-            return
-        fi
-
+        
         has_error=false
 
         for ((i=1; i<=${#type_array[@]}; i++)); do
