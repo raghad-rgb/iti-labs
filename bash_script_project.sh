@@ -155,8 +155,8 @@ function insert_into_table() {
             columns=$(echo "$metadata" | cut -d '|' -f2 | sed 's/ Columns: //')
             data_types=$(echo "$metadata" | cut -d '|' -f3 | sed 's/ Data Types: //')
 
-            IFS=' ' read -ra type_array <<< "$data_types"
-            IFS=',' read -ra value_array <<< "$data"
+            IFS=' ' read -ra type_array <<< "$data_types"                      
+            IFS=',' read -ra value_array <<< "$data"                  
 
             has_error=false
 
@@ -282,7 +282,7 @@ function update_table() {
 
 
         if ! [ "$has_error" = true ]; then
-            formatted_data=$(echo "$new_data" | sed 's/[\/&]/\\&/g')
+            formatted_data=$(echo "$new_data" | sed 's/[\/&]/\\&/g')      
             sed -i "${line}s/.*/$formatted_data/" "$table.txt"
             echo "Line $line updated in $table"
         fi
